@@ -1,10 +1,7 @@
+require 'cgi'
+
 module Clearwater
   module Component
-    def self.included klass
-      def klass.attributes *attrs
-        attr_accessor *attrs
-      end
-    end
     attr_accessor :outlet
     attr_accessor :router
 
@@ -163,14 +160,14 @@ module Clearwater
       def initialize tag_name, attributes=nil, content=nil
         @tag_name = tag_name
         @attributes = sanitize_attributes(attributes)
-        @content = content
+        @content = sanitize_content(content)
       end
 
       def to_html
         html = "<#{@tag_name}"
         if @attributes
           @attributes.each do |attr, value|
-            html << " #{attr}=#{value.to_s.inspect}"
+            html << " #{attr}=#{CGI.escape(value.to_s).inspect}"
           end
         end
         if @content
