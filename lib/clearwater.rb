@@ -1,8 +1,13 @@
 require "opal"
 require "bowser"
+require "clearwater/component"
+require 'clearwater/link'
+require 'clearwater/router'
 
 module Clearwater
   require_relative "clearwater/version"
 end
 
-Opal.append_path(File.expand_path(File.join("..", "..", "opal"), __FILE__).untaint)
+%w(opal shared).each do |dir|
+  Opal.append_path(File.expand_path(File.join("..", "..", dir), __FILE__).untaint)
+end
