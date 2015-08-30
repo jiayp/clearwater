@@ -70,6 +70,7 @@ module Clearwater
       legend
       li
       link
+      main
       map
       mark
       menu
