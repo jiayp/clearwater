@@ -2,6 +2,7 @@ require "opal"
 require "bowser"
 require "clearwater/component"
 require 'clearwater/link'
+$:.unshift File.expand_path(File.join('..', '..', 'shared'), __FILE__)
 require 'clearwater/router'
 require 'clearwater/application'
 
