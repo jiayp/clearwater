@@ -212,6 +212,8 @@ module Clearwater
         case content
         when Array
           content.map { |c| sanitize_content c }.join
+        when String
+          content.gsub('<', '&lt;')
         else
           content.to_s
         end

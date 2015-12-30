@@ -22,5 +22,13 @@ module Clearwater
 
       expect(html).to eq('<div style="font-size:24px;padding:3px">Hello world!</div>')
     end
+
+    describe 'content sanitization' do
+      it 'sanitizes content strings, but not elements' do
+        html = component.div(component.p('<em>hi</em>')).to_s
+
+        expect(html).to eq '<div><p>&lt;em>hi&lt;/em></p></div>'
+      end
+    end
   end
 end
