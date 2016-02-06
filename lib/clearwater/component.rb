@@ -1,7 +1,10 @@
 require 'clearwater/component/html_tags'
+require 'clearwater/dom_reference'
 
 module Clearwater
   module Component
+    extend self
+
     attr_accessor :outlet
     attr_accessor :router
 
@@ -34,10 +37,6 @@ module Clearwater
 
     def params
       router.params_for_path(router.current_path)
-    end
-
-    def param(key)
-      params[key]
     end
 
     def call &block
@@ -83,10 +82,8 @@ module Clearwater
           }.join(';')
         end
 
-        attributes.each do |key, handler|
-          if key[0, 2] == 'on'
-            attributes.delete key
-          end
+        attributes.reject! do |key, handler|
+          key[0, 2] == 'on' || DOMReference === handler
         end
 
         attributes

@@ -1,3 +1,4 @@
+require 'spec_helper'
 require_relative '../../lib/clearwater/component'
 
 module Clearwater
@@ -21,6 +22,14 @@ module Clearwater
       }, "Hello world!").to_s
 
       expect(html).to eq('<div style="font-size:24px;padding:3px">Hello world!</div>')
+    end
+
+    it 'removes DOMReference attributes' do
+      html = component.div({
+        ref: DOMReference.new,
+      }, 'Hello World!').to_s
+
+      expect(html).to eq('<div>Hello World!</div>')
     end
 
     describe 'content sanitization' do
